@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./index.css" type="text/css">
+</head>
+<body>
+    <center>
+        <table cellspacing="3" cellpadding="3">
+            <tr>
+                <th colspan="4"><h1>Calculator</h1></th>
+            </tr>
+            <tr>
+                <td colspan="3"><input type="text" id="display"></td>
+                <td><button class="operator" onclick="calculate()">=</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendNumber('1')">1</button></td>
+                <td><button onclick="appendNumber('2')">2</button></td>
+                <td><button onclick="appendNumber('3')">3</button></td>
+                <td><button class="operator" onclick="appendOperator('+')">+</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendNumber('4')">4</button></td>
+                <td><button onclick="appendNumber('5')">5</button></td>
+                <td><button onclick="appendNumber('6')">6</button></td>
+                <td><button class="operator" onclick="appendOperator('-')">-</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="appendNumber('7')">7</button></td>
+                <td><button onclick="appendNumber('8')">8</button></td>
+                <td><button onclick="appendNumber('9')">9</button></td>
+                <td><button class="operator" onclick="appendOperator('*')">*</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="clearDisplay()">C</button></td>
+                <td><button onclick="appendNumber('0')">0</button></td>
+                <td><button onclick="appendDecimal('.')">.</button></td>
+                <td><button class="operator" onclick="appendOperator('/')">/</button></td>
+            </tr>
+        </table>
+    </center>
+    <script>
+        let displayValue = "";
+
+        function updateDisplay() {
+        const display = document.getElementById("display");
+        display.value = displayValue;
+        }
+
+        function appendOperator(operator) {
+        const operators = ["+", "-", "*", "/"];
+
+        if (operators.includes(displayValue.slice(-1))) {
+            displayValue = displayValue.slice(0, -1) + operator;
+        } else {
+            displayValue += operator;
+        }
+
+        updateDisplay();
+        }
+
+        function appendNumber(number) {
+        displayValue += number;
+        updateDisplay();
+        }
+
+        function appendDecimal(decimal) {
+        if (!displayValue.includes(decimal)) {
+            displayValue += decimal;
+            updateDisplay();
+        }
+        }
+
+        function clearDisplay() {
+        displayValue = "";
+        updateDisplay();
+        }
+
+        function calculate() {
+        try {
+            const result = eval(displayValue);
+            displayValue = String(result);
+            updateDisplay();
+        } catch (error) {
+            displayValue = "";
+            updateDisplay();
+        }
+        }
+    </script>
+</body>
+</html>
